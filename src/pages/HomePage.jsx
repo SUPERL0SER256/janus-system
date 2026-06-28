@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
@@ -147,6 +148,7 @@ export default function HomePage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
