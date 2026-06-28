@@ -1,0 +1,12 @@
+.home-page {
+  position: relative;
+}
+
+.home-page h1 {
+  letter-spacing: -0.01em;
+}
+
+/* Slightly warmer glass tint for the landing page */
+.home-page .liquid-glass {
+  background: rgba(20, 20, 24, 0.55);
+}

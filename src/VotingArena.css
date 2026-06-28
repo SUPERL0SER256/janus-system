@@ -1,0 +1,17 @@
+.voting-page {
+  position: relative;
+}
+
+/* Violet glass tint for the voting screen */
+.voting-page .liquid-glass {
+  background: rgba(18, 15, 24, 0.55);
+}
+
+/* Dim the unselected side slightly on hover, since this is a head-to-head choice */
+.voting-page .matchup:hover .pair-card:not(:hover) {
+  opacity: 0.65;
+}
+
+.voting-page .pair-card {
+  transition: opacity 0.25s ease;
+}
