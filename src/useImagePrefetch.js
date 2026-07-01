@@ -1,4 +1,3 @@
-// src/useImagePrefetch.js
 import { useEffect } from 'react';
 
 export function useImagePrefetch(urlArray) {
