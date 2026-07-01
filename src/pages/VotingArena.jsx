@@ -37,11 +37,14 @@ export default function VotingArena() {
 
   const handleVote = (winner, loser) => {
     setQueue((prev) => prev.slice(1));
+    
     supabase.rpc('record_elo_vote', {
       winner_id: winner.id,
       loser_id: loser.id,
       current_project_id: projectId
-    }).catch(err => console.error('Failed to sync vote:', err));
+    }).then(({ error }) => {
+      if (error) console.error('Failed to sync vote:', error);
+    });
   };
 
   if (isLoading) return (
