@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
 .page {
   min-height: 100vh;
   padding: 4rem clamp(1.25rem, 6vw, 5rem);
@@ -5,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #eaeaee 55%, #d9d9dd 100%);
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, #4d4949 0%, #86868a 55%, #c8c8cd 100%);
   box-sizing: border-box;
 }
 
@@ -22,13 +24,14 @@
 .title {
   margin: 0 0 0.75rem;
   font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 600;
-  color: #18181b;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #f2f2f3;
 }
 
 .subtitle {
   margin: 0;
-  color: #6b7280;
+  color: #c4c6cb;
   font-size: 1rem;
   line-height: 1.5;
 }

@@ -85,7 +85,7 @@ export default function ResultsDashboard() {
                 className={`dash-row ${index === 0 ? 'dash-row--leader' : ''}`}
               >
                 <div className="dash-rank">
-                  {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
+                  {index === 0 ? '#1' : index === 1 ? '#2' : index === 2 ? '#3' : `#${index + 1}`}
                 </div>
                 <div className="dash-thumb">
                   <img src={design.image_url} alt={design.name} />

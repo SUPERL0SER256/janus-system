@@ -10,7 +10,7 @@
 
 .dash-page {
   min-height: 100vh;
-  background: #f4f4f5;
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, #4d4949 0%, #86868a 55%, #c8c8cd 100%);
   padding: 0 clamp(1.25rem, 6vw, 5rem);
   padding-bottom: 4rem;
   box-sizing: border-box;
@@ -26,9 +26,10 @@
 }
 
 .dash-logo {
-  font-size: 1.1rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  color: #18181b;
+  font-family: 'Roboto', sans-serif;
+  color: #d3d3d9;
   text-decoration: none;
 }
 
@@ -40,9 +41,9 @@
   gap: 0.4rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #16a34a;
-  background: #dcfce7;
-  border: 1px solid #bbf7d0;
+  color: #088b38;
+  background: #0c0e0c;
+  border: 1px solid #040504;
   border-radius: 999px;
   padding: 0.3rem 0.85rem;
 }
@@ -86,12 +87,12 @@
   gap: 1rem;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 1rem;
+  
   padding: 0.85rem 1.25rem;
   cursor: pointer;
   text-align: left;
   width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
