@@ -1,0 +1,245 @@
+.page {
+  min-height: 100vh;
+  padding: 4rem clamp(1.25rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #eaeaee 55%, #d9d9dd 100%);
+  box-sizing: border-box;
+}
+
+.page-inner {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.header-block {
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  color: #18181b;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.upload-container {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 1.75rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.upload-header {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #18181b;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 3rem 1rem;
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.dropzone:hover {
+  border-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  padding: 0.6rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #18181b;
+}
+
+.dropzone-text {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.dropzone-subtext {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.files-selected {
+  text-align: center;
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.btn-primary {
+  background: #111113;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #27272a;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.result-container {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 1.75rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.result-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #18181b;
+  text-align: center;
+}
+
+.field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.field-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-display {
+  flex: 1;
+  background: #f4f4f5;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  font-family: monospace;
+  color: #3f3f46;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-secondary {
+  background: #18181b;
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: #27272a;
+}
+
+.btn-link {
+  display: block;
+  text-align: center;
+  background: #f4f4f5;
+  color: #18181b;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  background: #e4e4e7;
+}
+
+/* Footer (shared component) — overridden here so it reads
+   correctly on this page's light background */
+.page footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.page footer a {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.75rem;
+  text-decoration: none;
+  margin: 0 1rem;
+}
+
+.page footer a:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
