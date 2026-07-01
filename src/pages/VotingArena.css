@@ -1,17 +1,170 @@
-.voting-page {
-  position: relative;
+.arena-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #f4f4f5;
+  color: #9ca3af;
+  font-size: 0.9rem;
 }
 
-/* Violet glass tint for the voting screen */
-.voting-page .liquid-glass {
-  background: rgba(18, 15, 24, 0.55);
+.arena-done-link {
+  background: #18181b;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-/* Dim the unselected side slightly on hover, since this is a head-to-head choice */
-.voting-page .matchup:hover .pair-card:not(:hover) {
-  opacity: 0.65;
+.arena-page {
+  min-height: 100vh;
+  background: #f4f4f5;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(1.25rem, 6vw, 5rem);
+  box-sizing: border-box;
 }
 
-.voting-page .pair-card {
-  transition: opacity 0.25s ease;
+.arena-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  margin-bottom: 2.5rem;
+  flex-shrink: 0;
+}
+
+.arena-logo {
+  font-size: 1.1rem;
+    font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  color: #18181b;
+  text-decoration: none;
+}
+
+.arena-logo:hover { opacity: 0.7; }
+
+.arena-remaining {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.arena-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 4rem;
+}
+
+.arena-prompt {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin: 0;
+  text-align: center;
+}
+
+.arena-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 860px;
+}
+
+.arena-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.arena-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.arena-card:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.arena-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f0f0f0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.arena-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.arena-card:hover .arena-img {
+  transform: scale(1.04);
+}
+
+.arena-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.arena-card-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #18181b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.arena-card-cta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ca3af;
+  background: #f4f4f5;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.arena-card:hover .arena-card-cta {
+  background: #18181b;
+  color: #ffffff;
+}
+
+@media (max-width: 480px) {
+  .arena-pair { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arena-card { transition: none; }
+  .arena-img { transition: none; }
+  .arena-card-cta { transition: none; }
 }
