@@ -154,6 +154,32 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.arena-stop-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 400; 
+  background: rgba(17, 17, 19, 0.25); 
+  color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); 
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  text-decoration: none;
+  
+  transition: all 0.2s ease;
+}
+
+.arena-stop-btn:hover {
+  background: rgba(17, 17, 19, 0.65);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
 .arena-card:hover .arena-card-cta {
   background: #18181b;
   color: #ffffff;

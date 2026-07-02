@@ -97,6 +97,9 @@ export default function VotingArena() {
             })}
           </motion.div>
         </AnimatePresence>
+        <Link to={`/project/${projectId}/results`} className="arena-stop-btn">
+  Stop Voting
+</Link>
       </main>
     </div>
   );
