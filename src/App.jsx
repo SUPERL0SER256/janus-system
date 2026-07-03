@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
 import IntroPage from './pages/IntroPage';
 import VotingArena from './pages/VotingArena';
@@ -10,7 +11,8 @@ import './App.css';
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/upload" element={<HomePage />} />
       <Route path="/project/:projectId" element={<IntroPage />} />
       <Route path="/project/:projectId/vote" element={<VotingArena />} />
       <Route path="/project/:projectId/results" element={<ResultsDashboard />} />
