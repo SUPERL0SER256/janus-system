@@ -1,6 +1,6 @@
 .landing-page {
   min-height: 100vh;
-  background: radial-gradient(ellipse 90% 60% at 50% 0%, #4d4949 0%, #86868a 55%, #c8c8cd 100%);
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #eaeaee 55%, #d9d9dd 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +23,7 @@
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
   font-family: 'Roboto', sans-serif;
-  color: #dbdbe6;
+  color: #18181b;
   letter-spacing: -0.01em;
 }
 
