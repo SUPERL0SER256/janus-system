@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../supabaseClient';
 import { useImagePrefetch } from '../useImagePrefetch';
 import './VotingArena.css';
 
+const VOTE_COOLDOWN_MS = 500; 
+
 export default function VotingArena() {
   const { projectId } = useParams();
   const [queue, setQueue] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCoolingDown, setIsCoolingDown] = useState(false);
+  const lastVoteTime = useRef(0);
 
   useEffect(() => {
     const fetchDesigns = async () => {
@@ -36,8 +40,16 @@ export default function VotingArena() {
   useImagePrefetch(nextPair ? [nextPair[0].image_url, nextPair[1].image_url] : []);
 
   const handleVote = (winner, loser) => {
+    const now = Date.now();
+
+    if (now - lastVoteTime.current < VOTE_COOLDOWN_MS) return;
+    lastVoteTime.current = now;
+
+    setIsCoolingDown(true);
+    setTimeout(() => setIsCoolingDown(false), VOTE_COOLDOWN_MS);
+
     setQueue((prev) => prev.slice(1));
-    
+
     supabase.rpc('record_elo_vote', {
       winner_id: winner.id,
       loser_id: loser.id,
@@ -83,7 +95,8 @@ export default function VotingArena() {
                 <button
                   key={option.id}
                   onClick={() => handleVote(option, opponent)}
-                  className="arena-card"
+                  disabled={isCoolingDown}
+                  className={`arena-card ${isCoolingDown ? 'arena-card--cooldown' : ''}`}
                 >
                   <div className="arena-img-wrap">
                     <img src={option.image_url} alt={option.name} className="arena-img" />
@@ -97,9 +110,10 @@ export default function VotingArena() {
             })}
           </motion.div>
         </AnimatePresence>
+
         <Link to={`/project/${projectId}/results`} className="arena-stop-btn">
-  Stop Voting
-</Link>
+          Stop Voting
+        </Link>
       </main>
     </div>
   );

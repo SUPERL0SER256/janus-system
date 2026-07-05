@@ -202,6 +202,38 @@
   text-decoration: none;
 }
 
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  cursor: pointer;
+  max-width: 480px;
+}
+
+.consent-checkbox {
+  margin-top: 0.15rem;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  accent-color: #18181b;
+  cursor: pointer;
+}
+
+.consent-text {
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.consent-link {
+  color: #18181b;
+  text-decoration: underline;
+}
+
+.consent-link:hover {
+  color: #374151;
+}
+
 .btn-link:hover { background: #e4e4e7; }
 
 .page footer {

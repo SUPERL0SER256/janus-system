@@ -183,6 +183,11 @@
   color: #ffffff;
 }
 
+.arena-card--cooldown {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 @media (max-width: 480px) {
   .arena-pair { grid-template-columns: 1fr; }
 }

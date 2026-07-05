@@ -1,41 +1,55 @@
 import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
+import './legal.css';
 
 export default function Privacy() {
   return (
-    <div className="flex flex-col items-center p-6 min-h-screen w-full max-w-4xl mx-auto">
-      <header className="w-full flex items-baseline gap-4 mt-8 mb-12">
-        <Link to="/" className="text-xl tracking-[0.2em] font-light text-white/80 hover:text-white transition-colors">JANUS</Link>
-        <span className="text-xs font-mono text-white/20 uppercase">Privacy Policy</span>
-      </header>
+    <div className="legal-page">
+      <div className="legal-inner">
+        <Link to="/" className="legal-back">← Back</Link>
+        <h1>Privacy Policy</h1>
+        <p className="legal-date">Last updated: July 2026</p>
 
-      <div className="liquid-glass w-full p-8 md:p-12 rounded-[2rem] text-white/70 font-light leading-relaxed space-y-8 mb-16">
         <section>
-          <h2 className="text-lg font-medium text-white/90 mb-3 tracking-wide">Information We Collect</h2>
-          <ul className="list-disc pl-5 space-y-2 text-sm">
-            <li><strong>Uploaded Content:</strong> When a project is initiated, we collect and store the image files (JPG, PNG, WEBP) uploaded to our servers.</li>
-            <li><strong>Voting Data:</strong> We collect anonymous interaction data when users vote in the comparison arena.</li>
-            <li><strong>Usage Data:</strong> Standard web routing data may be temporarily processed by our hosting provider.</li>
+          <h2>1. What We Collect</h2>
+          <p>When you use Janus System, we collect:</p>
+          <ul>
+            <li><strong>Uploaded images</strong> — the design files you submit for comparison</li>
+            <li><strong>Vote data</strong> — a log of pairwise voting decisions, recorded against each project</li>
+            <li><strong>Project metadata</strong> — timestamps and identifiers associated with your comparison project</li>
           </ul>
+          <p>We do not collect your name, email address, or any account information. Janus System requires no sign-up.</p>
         </section>
 
         <section>
-          <h2 className="text-lg font-medium text-white/90 mb-3 tracking-wide">How We Use Your Information</h2>
-          <p className="text-sm">Data is strictly used to operate the Janus System, calculate Elo scores, and display comparative rankings.</p>
+          <h2>2. How We Use Your Data</h2>
+          <p>Your data is used solely to operate the Service — specifically to render the voting arena, calculate Elo rankings, and display your results dashboard. We do not use your data for advertising, profiling, or any purpose beyond running your project.</p>
         </section>
 
         <section>
-          <h2 className="text-lg font-medium text-white/90 mb-3 tracking-wide">Third-Party Services</h2>
-          <p className="text-sm">Your data is processed by our secure infrastructure partners: Vercel (Hosting) and Supabase (Database & Storage).</p>
+          <h2>3. Third-Party Infrastructure</h2>
+          <p>Janus System is built on Supabase, a third-party backend provider. Your uploaded images and voting data are stored and processed on Supabase's infrastructure. By using Janus System, you acknowledge that your data is subject to Supabase's own privacy practices. We encourage you to review <a href="https://supabase.com/privacy" target="_blank" rel="noreferrer">Supabase's Privacy Policy</a>.</p>
         </section>
 
         <section>
-          <h2 className="text-lg font-medium text-white/90 mb-3 tracking-wide">Data Retention and Deletion</h2>
-          <p className="text-sm">The Janus System is designed to be self-cleaning. Projects, associated image files, and voting data are automatically and permanently deleted from our active database after 7 days.</p>
+          <h2>4. Data Retention</h2>
+          <p>Projects and all associated images and vote data are automatically deleted after 7 days. If you wish to request early deletion of your content, contact us with your project link and we will remove it promptly.</p>
+        </section>
+
+        <section>
+          <h2>5. Privacy of Subjects in Uploaded Content</h2>
+          <p>If you upload images containing identifiable individuals, you are solely responsible for obtaining the necessary privacy clearances — such as a signed model release — from those individuals. Janus System does not verify consent for depicted subjects and accepts no liability for content uploaded without proper authorisation.</p>
+        </section>
+
+        <section>
+          <h2>6. Your Rights</h2>
+          <p>You have the right to request deletion of any content you have uploaded. Since Janus System does not require accounts, deletion requests should be submitted via contact with your project link. We will process requests within a reasonable timeframe.</p>
+        </section>
+
+        <section>
+          <h2>7. Changes to This Policy</h2>
+          <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date.</p>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 }
