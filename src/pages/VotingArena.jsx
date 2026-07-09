@@ -5,34 +5,37 @@ import { supabase } from '../supabaseClient';
 import { useImagePrefetch } from '../useImagePrefetch';
 import './VotingArena.css';
 
-const VOTE_COOLDOWN_MS = 500; 
+const VOTE_COOLDOWN_MS = 500;
 
 export default function VotingArena() {
   const { projectId } = useParams();
   const [queue, setQueue] = useState([]);
+  const [project, setProject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isCoolingDown, setIsCoolingDown] = useState(false);
   const lastVoteTime = useRef(0);
 
   useEffect(() => {
-    const fetchDesigns = async () => {
-      const { data, error } = await supabase
-        .from('images')
-        .select('*')
-        .eq('project_id', projectId);
+    const fetchData = async () => {
+      const [{ data: projectData }, { data: images, error }] = await Promise.all([
+        supabase.from('projects').select('title, description').eq('id', projectId).single(),
+        supabase.from('images').select('*').eq('project_id', projectId)
+      ]);
 
-      if (!error && data?.length > 1) {
+      if (projectData) setProject(projectData);
+
+      if (!error && images?.length > 1) {
         const initialQueue = Array.from({ length: 20 }, () => {
-          let idxA = Math.floor(Math.random() * data.length);
-          let idxB = Math.floor(Math.random() * data.length);
-          while (idxA === idxB) idxB = Math.floor(Math.random() * data.length);
-          return [data[idxA], data[idxB]];
+          let idxA = Math.floor(Math.random() * images.length);
+          let idxB = Math.floor(Math.random() * images.length);
+          while (idxA === idxB) idxB = Math.floor(Math.random() * images.length);
+          return [images[idxA], images[idxB]];
         });
         setQueue(initialQueue);
       }
       setIsLoading(false);
     };
-    fetchDesigns();
+    fetchData();
   }, [projectId]);
 
   const currentPair = queue[0];
@@ -41,15 +44,11 @@ export default function VotingArena() {
 
   const handleVote = (winner, loser) => {
     const now = Date.now();
-
     if (now - lastVoteTime.current < VOTE_COOLDOWN_MS) return;
     lastVoteTime.current = now;
-
     setIsCoolingDown(true);
     setTimeout(() => setIsCoolingDown(false), VOTE_COOLDOWN_MS);
-
     setQueue((prev) => prev.slice(1));
-
     supabase.rpc('record_elo_vote', {
       winner_id: winner.id,
       loser_id: loser.id,
@@ -59,9 +58,7 @@ export default function VotingArena() {
     });
   };
 
-  if (isLoading) return (
-    <div className="arena-loading">Loading...</div>
-  );
+  if (isLoading) return <div className="arena-loading">Loading...</div>;
 
   if (!currentPair) return (
     <div className="arena-loading">
@@ -78,6 +75,14 @@ export default function VotingArena() {
       </header>
 
       <main className="arena-main">
+        {/* Project context shown while voting */}
+        {(project?.title || project?.description) && (
+          <div className="arena-context">
+            {project.title && <h2 className="arena-context-title">{project.title}</h2>}
+            {project.description && <p className="arena-context-desc">{project.description}</p>}
+          </div>
+        )}
+
         <h1 className="arena-prompt">Which do you prefer?</h1>
 
         <AnimatePresence mode="popLayout">

@@ -28,6 +28,8 @@ export default function HomePage() {
   const [hasConsented, setHasConsented] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [files, setFiles] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [votingLink, setVotingLink] = useState(null);
   const [resultsLink, setResultsLink] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -47,8 +49,16 @@ export default function HomePage() {
 
     setIsCreating(true);
     try {
-      const { data: projectData, error: projectError } = await supabase.from('projects').insert([{}]).select().single();
+      const { data: projectData, error: projectError } = await supabase
+        .from('projects')
+        .insert([{
+          title: title.trim() || null,
+          description: description.trim() || null
+        }])
+        .select()
+        .single();
       if (projectError) throw projectError;
+
       const newProjectId = projectData.id;
       const compressionOptions = {
         maxSizeMB: 0.5,
@@ -103,24 +113,50 @@ export default function HomePage() {
 
         {!votingLink ? (
           <div className="stack">
+
+            {/* Project details */}
+            <div className="upload-container">
+              <div className="upload-header">Project Details</div>
+              <div className="field-stack">
+                <div className="input-field">
+                  <label className="input-label">Title</label>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="e.g. Logo Redesign — Round 2"
+                    className="text-input"
+                    maxLength={80}
+                  />
+                </div>
+                <div className="input-field">
+                  <label className="input-label">Description <span className="input-optional">(optional)</span></label>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Give voters some context — what are these designs for? What should they focus on?"
+                    className="text-input text-textarea"
+                    maxLength={300}
+                    rows={3}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Image upload */}
             <div className="upload-container">
               <div className="upload-header">Images</div>
-
-              {/* Dropzone — only the file input trigger lives here */}
               <label className="dropzone">
                 <span className="upload-btn">↑ Upload</span>
                 <span className="dropzone-text">Choose images or drag & drop them here.</span>
                 <span className="dropzone-subtext">JPG, PNG, and WEBP supported.</span>
                 <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden-input" />
               </label>
-
-              {/* File count — outside the dropzone label */}
               {files.length > 0 && (
                 <p className="files-selected">{files.length} image{files.length === 1 ? '' : 's'} selected</p>
               )}
             </div>
 
-            {/* Consent checkbox — outside the upload container */}
             <label className="consent-row">
               <input
                 type="checkbox"

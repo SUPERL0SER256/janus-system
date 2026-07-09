@@ -1,8 +1,20 @@
 import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
 import './IntroPage.css';
 
 export default function IntroPage() {
   const { projectId } = useParams();
+  const [project, setProject] = useState(null);
+
+  useEffect(() => {
+    supabase
+      .from('projects')
+      .select('title, description')
+      .eq('id', projectId)
+      .single()
+      .then(({ data }) => setProject(data));
+  }, [projectId]);
 
   return (
     <div className="intro-page">
@@ -13,7 +25,12 @@ export default function IntroPage() {
         </div>
 
         <div className="intro-hero">
-          <h1 className="intro-title">Making choices is hard.<br />We make it simple.</h1>
+          <h1 className="intro-title">
+            {project?.title || 'Making choices is hard. We make it simple.'}
+          </h1>
+          {project?.description && (
+            <p className="intro-project-desc">{project.description}</p>
+          )}
           <p className="intro-subtitle">
             Someone wants to know which of their designs resonates most — and they've asked for your honest opinion.
           </p>

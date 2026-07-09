@@ -188,6 +188,31 @@
   opacity: 0.6;
 }
 
+.arena-context {
+  width: 100%;
+  max-width: 860px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.arena-context-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #18181b;
+}
+
+.arena-context-desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.55;
+}
+
 @media (max-width: 480px) {
   .arena-pair { grid-template-columns: 1fr; }
 }

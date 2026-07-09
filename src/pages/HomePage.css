@@ -236,6 +236,58 @@
 
 .btn-link:hover { background: #e4e4e7; }
 
+.field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input-optional {
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.text-input {
+  width: 100%;
+  background: #f9f9f9;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+  color: #18181b;
+  font-family: inherit;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.text-input:focus {
+  border-color: rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+}
+
+.text-input::placeholder {
+  color: #9ca3af;
+}
+
+.text-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
 .page footer {
   margin-top: auto;
   padding-top: 2rem;
