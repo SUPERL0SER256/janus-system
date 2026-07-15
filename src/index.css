@@ -11,7 +11,15 @@
 
 html, body, #root {
   min-height: 100%;
-  background: var(--janus-ink);
+  background: linear-gradient(135deg, #050505, #1a1a1a, #0a0a0a, #262626, #000000);
+  background-size: 400% 400%;
+  animation: achromaticFlow 15s ease infinite;
+}
+
+@keyframes achromaticFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 body {

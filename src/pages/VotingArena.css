@@ -161,8 +161,8 @@
   padding: 0.4rem 1.2rem;
   font-size: 0.8rem;
   font-weight: 400;
-  background: rgba(17, 17, 19, 0.25); 
-  color: rgba(255, 255, 255, 0.7);
+  background: rgb(72, 72, 79); 
+  color: rgba(255, 255, 255);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px); 
   border: 1px solid rgba(255, 255, 255, 0.1);

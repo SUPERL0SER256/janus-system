@@ -1,4 +1,3 @@
-import Footer from '../components/Footer';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
@@ -179,7 +178,7 @@ export default function HomePage() {
             <button
               onClick={handleCreateProject}
               disabled={isCreating || files.length < 2 || !hasConsented}
-              className="btn-primary"
+              className="btn-primary liquid-glass liquid-glass-interactive"
             >
               {isCreating ? 'Compressing & Initializing...' : 'Create Link'}
             </button>
@@ -205,7 +204,6 @@ export default function HomePage() {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

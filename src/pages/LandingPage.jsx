@@ -1,33 +1,64 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './LandingPage.css';
 
 export default function LandingPage() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
   return (
     <div className="landing-page">
-      <div className="landing-inner">
-
-        <h1 className="landing-title">The 'Janus System'</h1>
-
-        <div className="landing-body">
-          <p>
-            Choosing between design iterations is harder than it looks. When you're too close to your own work, every option starts to feel equally valid, and asking for feedback often leads to vague, unhelpful answers.
+      <motion.div 
+        className="landing-inner"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div variants={itemVariants} className="hero-section">
+          
+          <h1 className="landing-title">The 'Janus System'</h1>
+          <p className="hero-subtitle">
+            Eliminate choice paralysis. Upload your design iterations, share a link, and let collective pairwise voting reveal the strongest design.
           </p>
-          <p>
-            The Janus System solves this by breaking the decision down into simple, one-on-one comparisons. Instead of asking people to rank a list or score options out of ten, it asks one question at a time: <em>which of these two do you prefer?</em> Over many comparisons, a clear winner emerges, not from guesswork, but from genuine collective preference.
-          </p>
-          <p>
-            To get started, upload from 2 upto 50 iterations of your design. You'll get a shareable voting link to send to anyone whose opinion you value such as collaborators, clients, or your audience. As votes come in, a live results dashboard tracks how each iteration is performing in real time.
-          </p>
-          <p>
-            No sign-up required. No complicated setup. Just upload your iterations, share the link, and let the results speak for themselves.
-          </p>
-        </div>
+          <div className="hero-actions">
+            <Link to="/upload" className="landing-cta primary">
+              Upload Iterations
+            </Link>
+            <Link to="/about" className="landing-cta secondary">
+              Learn How It Works
+            </Link>
+          </div>
+        </motion.div>
 
-        <Link to="/upload" className="landing-cta">
-          Upload Iterations
-        </Link>
+        <motion.div variants={itemVariants} className="features-section">
+          <div className="feature-card">
+            <div className="feature-icon">1</div>
+            <h3>Upload</h3>
+            <p>Upload between 2 and 50 design iterations you want to compare.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">2</div>
+            <h3>Share</h3>
+            <p>Send your unique voting link to clients, collaborators, or your audience.</p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">3</div>
+            <h3>Decide</h3>
+            <p>Watch the live dashboard as pairwise comparisons generate reliable Elo ratings.</p>
+          </div>
+        </motion.div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }

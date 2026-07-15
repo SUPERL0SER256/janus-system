@@ -1,7 +1,7 @@
 .legal-page {
   min-height: 100vh;
   background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #eaeaee 55%, #d9d9dd 100%);
-  padding: 4rem clamp(1.25rem, 6vw, 5rem);
+  padding: 4rem clamp(1rem, 5vw, 2.5rem);
   box-sizing: border-box;
 }
 
