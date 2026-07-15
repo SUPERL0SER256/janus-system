@@ -10,6 +10,7 @@
 
 .dash-page {
   min-height: 100vh;
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, #4d4949 0%, #86868a 55%, #c8c8cd 100%);
   padding: 0 clamp(1.25rem, 6vw, 5rem);
   padding-bottom: 4rem;
   box-sizing: border-box;
