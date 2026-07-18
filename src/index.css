@@ -54,3 +54,25 @@ h1, h2, h3 {
   border-color: rgba(255, 255, 255, 0.16);
   transform: translateY(-2px);
 }
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+  --janus-ink: #ffffff;
+  --janus-line: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] body {
+  background: linear-gradient(135deg, #ffffff, #fdfdfd, #fafafa, #ffffff, #f8f8f8);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="light"] .liquid-glass {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .liquid-glass-interactive:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.16);
+}

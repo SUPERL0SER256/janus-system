@@ -84,3 +84,29 @@
     padding: 1.5rem;
   }
 }
+
+/* Light Mode Overrides */
+[data-theme="light"] .about-title {
+  color: #18181b;
+}
+
+[data-theme="light"] .about-content p {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="light"] .about-content em {
+  color: #18181b;
+}
+
+[data-theme="light"] .back-link {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .back-link:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="light"] .about-cta {
+  background: #18181b;
+  color: #ffffff;
+}

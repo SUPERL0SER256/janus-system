@@ -161,3 +161,50 @@
 @media (prefers-reduced-motion: reduce) {
   .landing-cta { transition: none; }
 }
+
+/* Light Mode Overrides */
+[data-theme="light"] .landing-title,
+[data-theme="light"] .feature-card h3 {
+  color: #18181b;
+}
+
+[data-theme="light"] .hero-subtitle,
+[data-theme="light"] .feature-card p {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+[data-theme="light"] .hero-badge {
+  color: #374151;
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .landing-cta.primary {
+  background: #18181b;
+  color: #ffffff;
+}
+
+[data-theme="light"] .landing-cta.secondary {
+  color: #18181b;
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .landing-cta.secondary:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .feature-card {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .feature-card:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .feature-icon {
+  background: rgba(0, 0, 0, 0.06);
+  color: #18181b;
+}
