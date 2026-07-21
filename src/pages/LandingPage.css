@@ -5,6 +5,7 @@
   justify-content: center;
   padding: 4rem clamp(1rem, 5vw, 2.5rem);
   box-sizing: border-box;
+  position: relative;
 }
 
 .landing-inner {
@@ -158,11 +159,20 @@
   }
 }
 
+.landing-credit {
+  position: absolute;
+  bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .landing-cta { transition: none; }
 }
 
-/* Light Mode Overrides */
+
 [data-theme="light"] .landing-title,
 [data-theme="light"] .feature-card h3 {
   color: #18181b;

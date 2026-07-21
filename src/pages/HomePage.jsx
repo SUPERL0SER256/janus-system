@@ -204,6 +204,9 @@ export default function HomePage() {
           </div>
         )}
       </div>
+      <div className="designer-credit">
+        Design © Sumer Vaidya 2026
+      </div>
     </div>
   );
 }

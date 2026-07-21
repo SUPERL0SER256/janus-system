@@ -25,7 +25,6 @@ export default function LandingPage() {
         animate="visible"
       >
         <motion.div variants={itemVariants} className="hero-section">
-          
           <h1 className="landing-title">The 'Janus System'</h1>
           <p className="hero-subtitle">
             Eliminate choice paralysis. Upload your design iterations, share a link, and let collective pairwise voting reveal the strongest design.
@@ -59,6 +58,9 @@ export default function LandingPage() {
         </motion.div>
 
       </motion.div>
+      <div className="landing-credit">
+        Design © Sumer Vaidya 2026
+      </div>
     </div>
   );
 }

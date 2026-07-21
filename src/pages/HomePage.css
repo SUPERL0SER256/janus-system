@@ -289,6 +289,14 @@
   line-height: 1.5;
 }
 
+.designer-credit {
+  margin-top: 3rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
 /* Light Mode Overrides */
 [data-theme="light"] .title,
 [data-theme="light"] .upload-header,
