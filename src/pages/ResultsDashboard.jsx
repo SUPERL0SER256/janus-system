@@ -68,7 +68,7 @@ export default function ResultsDashboard() {
     const variance = designs.reduce((sum, d) => sum + Math.pow(d.elo_score - meanElo, 2), 0) / designs.length;
     stdDev = Math.round(Math.sqrt(variance));
   }
-  let consensusLabel = "Neck-and-Neck";
+  let consensusLabel = "Head to Head";
   if (stdDev > 150) {
     consensusLabel = "Clear Winners";
   } else if (stdDev >= 50) {

@@ -97,10 +97,6 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.dash-row:hover {
-  /* Hover effect removed */
-}
-
 .dash-row--leader {
   border-color: rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
@@ -315,7 +311,7 @@
 }
 
 .dash-summary-val {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #18181b;
   font-family: 'Roboto', sans-serif;
