@@ -10,7 +10,9 @@
 
 .dash-page {
   min-height: 100vh;
-  background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #eaeaee 55%, #d9d9dd 100%);
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #e8e8ed 55%, #cacad2 100%);
+  background-size: 400% 400%;
+  animation: achromaticFlow 15s ease infinite;
   padding: 0 clamp(1.25rem, 6vw, 5rem);
   padding-bottom: 4rem;
   box-sizing: border-box;
@@ -86,10 +88,11 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: #ffffff;
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(12px);
   border-radius: 0;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   padding: 0.85rem 1.25rem;
   cursor: pointer;
   text-align: left;
@@ -289,9 +292,10 @@
   margin-bottom: 2rem;
   padding: 1.5rem;
   border-radius: 0;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
 .dash-summary-stat {
@@ -345,9 +349,11 @@
 }
 
 .dash-chart-container {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(12px);
+  border-radius: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   padding: 1.5rem 1rem 0 0;
   margin-bottom: 2rem;
   width: 100%;

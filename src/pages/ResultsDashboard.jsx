@@ -155,8 +155,8 @@ export default function ResultsDashboard() {
               }))} margin={{ top: 20, right: 0, left: -20, bottom: 20 }}>
                 <defs>
                   <linearGradient id="achromaticGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#18181b" stopOpacity={0.9} />
-                    <stop offset="100%" stopColor="#d1d5db" stopOpacity={0.4} />
+                    <stop offset="0%" stopColor="#0c0e0c" stopOpacity={0.95} />
+                    <stop offset="100%" stopColor="#4b5563" stopOpacity={0.6} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
