@@ -10,7 +10,7 @@
 
 .dash-page {
   min-height: 100vh;
-  background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #e8e8ed 55%, #cacad2 100%);
+  background: radial-gradient(ellipse 90% 60% at 50% 0%, #ffffff 0%, #e8e8ed 55%, #efeff3 100%);
   background-size: 400% 400%;
   animation: achromaticFlow 15s ease infinite;
   padding: 0 clamp(1.25rem, 6vw, 5rem);
@@ -357,4 +357,56 @@
   padding: 1.5rem 1rem 0 0;
   margin-bottom: 2rem;
   width: 100%;
+}
+
+/* Dark Mode Overrides */
+.dash-dark {
+  background: linear-gradient(135deg, #050505, #1a1a1a, #0a0a0a, #262626, #000000);
+}
+
+.dash-dark .dash-logo,
+.dash-dark .dash-section-title,
+.dash-dark .dash-name,
+.dash-dark .dash-elo,
+.dash-dark .dash-matches,
+.dash-dark .dash-summary-val,
+.dash-dark .dash-dev,
+.dash-dark .dash-live,
+.dash-dark .dash-summary-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dash-dark .dash-row,
+.dash-dark .dash-summary,
+.dash-dark .dash-chart-container,
+.dash-dark .dash-modal-content {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dash-theme-toggle {
+  background: none;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.25rem 0.75rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.dash-theme-toggle:hover {
+  color: #18181b;
+  border-color: rgba(0,0,0,0.3);
+}
+
+.dash-dark .dash-theme-toggle {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.dash-dark .dash-theme-toggle:hover {
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.4);
 }

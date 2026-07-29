@@ -10,6 +10,7 @@ export default function ResultsDashboard() {
   const [designs, setDesigns] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedDesign, setSelectedDesign] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const latestDesignsRef = useRef([]);
   const hasPendingUpdates = useRef(false);
 
@@ -76,12 +77,17 @@ export default function ResultsDashboard() {
   }
 
   return (
-    <div className="dash-page">
+    <div className={`dash-page ${isDarkMode ? 'dash-dark' : ''}`}>
       <header className="dash-header">
         <Link to="/" className="dash-logo">The 'Janus System'</Link>
-        <div className="dash-live">
-          <span className="dash-live-dot"></span>
-          Live
+        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+          <button className="dash-theme-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
+            {isDarkMode ? 'Light' : 'Dark'}
+          </button>
+          <div className="dash-live">
+            <span className="dash-live-dot"></span>
+            Live
+          </div>
         </div>
       </header>
 
@@ -155,15 +161,15 @@ export default function ResultsDashboard() {
               }))} margin={{ top: 20, right: 0, left: -20, bottom: 20 }}>
                 <defs>
                   <linearGradient id="achromaticGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0c0e0c" stopOpacity={0.95} />
-                    <stop offset="100%" stopColor="#4b5563" stopOpacity={0.6} />
+                    <stop offset="0%" stopColor={isDarkMode ? "#ffffff" : "#0c0e0c"} stopOpacity={isDarkMode ? 0.9 : 0.95} />
+                    <stop offset="100%" stopColor={isDarkMode ? "#9ca3af" : "#4b5563"} stopOpacity={isDarkMode ? 0.3 : 0.6} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDarkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)"} />
                 <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
                 <YAxis domain={['dataMin - 50', 'dataMax + 50']} tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
 
-                <ReferenceLine y={1200} stroke="#18181b" strokeDasharray="3 3" />
+                <ReferenceLine y={1200} stroke={isDarkMode ? "#ffffff" : "#18181b"} strokeDasharray="3 3" />
                 <Bar dataKey="elo" radius={[0, 0, 0, 0]} maxBarSize={40} fill="url(#achromaticGradient)" />
               </BarChart>
             </ResponsiveContainer>
@@ -181,7 +187,7 @@ export default function ResultsDashboard() {
                     </feMerge>
                   </filter>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDarkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)"} />
                 <XAxis type="number" dataKey="matches" name="Matches" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
                 <YAxis type="number" dataKey="elo" name="Elo Score" domain={['dataMin - 50', 'dataMax + 50']} tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
                 <ZAxis type="category" dataKey="name" name="Design" />
@@ -189,7 +195,7 @@ export default function ResultsDashboard() {
                   name: d.name.length > 15 ? d.name.substring(0, 15) + '...' : d.name,
                   elo: d.elo_score,
                   matches: d.comparison_count
-                }))} fill="#656e7b" filter="url(#dotGlow)" />
+                }))} fill={isDarkMode ? "#ffffff" : "#656e7b"} filter="url(#dotGlow)" />
               </ScatterChart>
             </ResponsiveContainer>
           </div>
