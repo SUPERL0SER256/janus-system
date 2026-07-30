@@ -25,13 +25,25 @@ export default function VotingArena() {
       if (projectData) setProject(projectData);
 
       if (!error && images?.length > 1) {
-        const initialQueue = Array.from({ length: 20 }, () => {
-          let idxA = Math.floor(Math.random() * images.length);
-          let idxB = Math.floor(Math.random() * images.length);
-          while (idxA === idxB) idxB = Math.floor(Math.random() * images.length);
-          return [images[idxA], images[idxB]];
-        });
-        setQueue(initialQueue);
+        const allPairs = [];
+        for (let i = 0; i < images.length; i++) {
+          for (let j = i + 1; j < images.length; j++) {
+            // Randomize left/right presentation
+            if (Math.random() > 0.5) {
+              allPairs.push([images[i], images[j]]);
+            } else {
+              allPairs.push([images[j], images[i]]);
+            }
+          }
+        }
+        
+        // Shuffle the pairs (Fisher-Yates)
+        for (let i = allPairs.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [allPairs[i], allPairs[j]] = [allPairs[j], allPairs[i]];
+        }
+        
+        setQueue(allPairs);
       }
       setIsLoading(false);
     };

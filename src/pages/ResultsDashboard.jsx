@@ -11,19 +11,31 @@ export default function ResultsDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedDesign, setSelectedDesign] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [project, setProject] = useState(null);
   const latestDesignsRef = useRef([]);
   const hasPendingUpdates = useRef(false);
 
+  const isCreator = (() => {
+    try {
+      const creatorProjects = JSON.parse(localStorage.getItem('janus_creator_projects') || '[]');
+      return creatorProjects.includes(projectId);
+    } catch {
+      return false;
+    }
+  })();
+
   useEffect(() => {
     const fetchResults = async () => {
-      const { data, error } = await supabase
-        .from('images')
-        .select('*')
-        .eq('project_id', projectId)
-        .order('elo_score', { ascending: false });
-      if (!error && data) {
-        setDesigns(data);
-        latestDesignsRef.current = data;
+      const [{ data: projectData }, { data: imagesData, error }] = await Promise.all([
+        supabase.from('projects').select('title, description').eq('id', projectId).single(),
+        supabase.from('images').select('*').eq('project_id', projectId).order('elo_score', { ascending: false })
+      ]);
+      
+      if (projectData) setProject(projectData);
+
+      if (!error && imagesData) {
+        setDesigns(imagesData);
+        latestDesignsRef.current = imagesData;
       }
       setIsLoading(false);
     };
@@ -92,6 +104,14 @@ export default function ResultsDashboard() {
       </header>
 
       <main className="dash-main">
+        {/* Project context shown at top */}
+        {(project?.title || project?.description) && (
+          <div className="dash-context" style={{ marginBottom: '2rem' }}>
+            {project.title && <h2 className="dash-context-title" style={{ fontSize: '2rem', marginBottom: '0.5rem', color: isDarkMode ? '#fff' : '#18181b', fontWeight: 700 }}>{project.title}</h2>}
+            {project.description && <p className="dash-context-desc" style={{ color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#6b7280', lineHeight: 1.5 }}>{project.description}</p>}
+          </div>
+        )}
+
         <h2 className="dash-section-title">Rankings</h2>
 
         <div className="dash-list">
@@ -121,10 +141,12 @@ export default function ResultsDashboard() {
                     <div className="dash-bar-fill" style={{ width: `${barWidth}%` }}></div>
                   </div>
                 </div>
-                <div className="dash-score-ext">
-                  <div className={`dash-dev ${devClass}`}>{deviationStr}</div>
-                  <div className="dash-winrate">{winRate}% Win Rate</div>
-                </div>
+                {isCreator && (
+                  <div className="dash-score-ext">
+                    <div className={`dash-dev ${devClass}`}>{deviationStr}</div>
+                    <div className="dash-winrate">{winRate}% Win Rate</div>
+                  </div>
+                )}
                 <div className="dash-score">
                   <span className="dash-elo">{design.elo_score}</span>
                   <span className="dash-matches">{design.comparison_count} matches</span>
@@ -134,23 +156,27 @@ export default function ResultsDashboard() {
           })}
         </div>
 
-        <h2 className="dash-section-title" style={{ marginTop: '3rem' }}>Project Summary</h2>
-        <div className="dash-summary">
-          <div className="dash-summary-stat">
-            <span className="dash-summary-label">Total Matches</span>
-            <span className="dash-summary-val">{Math.floor(totalComparisons / 2)}</span>
-          </div>
-          <div className="dash-summary-stat">
-            <span className="dash-summary-label">Score Spread</span>
-            <span className="dash-summary-val">±{stdDev}</span>
-          </div>
-          <div className="dash-summary-stat">
-            <span className="dash-summary-label">Consensus</span>
-            <span className="dash-summary-val">{consensusLabel}</span>
-          </div>
-        </div>
+        {isCreator && (
+          <>
+            <h2 className="dash-section-title" style={{ marginTop: '3rem' }}>Project Summary</h2>
+            <div className="dash-summary">
+              <div className="dash-summary-stat">
+                <span className="dash-summary-label">Total Matches</span>
+                <span className="dash-summary-val">{Math.floor(totalComparisons / 2)}</span>
+              </div>
+              <div className="dash-summary-stat">
+                <span className="dash-summary-label">Score Spread</span>
+                <span className="dash-summary-val">±{stdDev}</span>
+              </div>
+              <div className="dash-summary-stat">
+                <span className="dash-summary-label">Consensus</span>
+                <span className="dash-summary-val">{consensusLabel}</span>
+              </div>
+            </div>
+          </>
+        )}
 
-        {designs.length > 0 && (
+        {isCreator && designs.length > 0 && (
           <>
             <h2 className="dash-section-title" style={{ marginTop: '1rem' }}>Performance vs Baseline</h2>
             <div className="dash-chart-container">

@@ -82,6 +82,13 @@ export default function HomePage() {
       });
       const finalImageRecords = await Promise.all(uploadPromises);
       await supabase.from('images').insert(finalImageRecords);
+
+      const creatorProjects = JSON.parse(localStorage.getItem('janus_creator_projects') || '[]');
+      if (!creatorProjects.includes(newProjectId)) {
+        creatorProjects.push(newProjectId);
+        localStorage.setItem('janus_creator_projects', JSON.stringify(creatorProjects));
+      }
+
       setVotingLink(`${window.location.origin}/project/${newProjectId}`);
       setResultsLink(`${window.location.origin}/project/${newProjectId}/results`);
       setIsCreating(false);
