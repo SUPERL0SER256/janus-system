@@ -129,7 +129,7 @@ export default function VotingArena() {
         </AnimatePresence>
 
         <Link to={`/project/${projectId}/results`} className="arena-stop-btn">
-          Stop Voting
+          I've seen enough
         </Link>
       </main>
     </div>

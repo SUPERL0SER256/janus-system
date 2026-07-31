@@ -151,7 +151,7 @@ export default function HomePage() {
               <div className="upload-header">Project Details</div>
               <div className="field-stack">
                 <div className="input-field">
-                  <label className="input-label">Title</label>
+                  <label className="input-label">Project Title</label>
                   <input
                     type="text"
                     value={title}
@@ -162,7 +162,7 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="input-field">
-                  <label className="input-label">Description <span className="input-optional">(optional)</span></label>
+                  <label className="input-label">The context. What do you want to ask the users. <span className="input-optional">(optional)</span></label>
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -177,7 +177,7 @@ export default function HomePage() {
 
             {/* Image upload */}
             <div className="upload-container">
-              <div className="upload-header">Images</div>
+              <div className="upload-header">Your Iterations</div>
               {files.length === 0 ? (
                 <label className="dropzone">
                   <span className="upload-btn">↑ Upload</span>
