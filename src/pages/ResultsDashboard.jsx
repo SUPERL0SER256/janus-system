@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Cell, ScatterChart, Scatter, ZAxis } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Cell, PieChart, Pie } from 'recharts';
 import './ResultsDashboard.css';
 
 export default function ResultsDashboard() {
@@ -88,6 +88,12 @@ export default function ResultsDashboard() {
     consensusLabel = "Moderate";
   }
 
+  const n = designs.length;
+  const totalMatches = Math.floor(totalComparisons / 2);
+  const totalPairs = (n * (n - 1)) / 2;
+  const averageVotesPerUser = totalPairs > 0 ? Math.min(totalPairs, 4 + n) : 1;
+  const estimatedVoters = totalMatches === 0 ? 0 : Math.ceil(totalMatches / averageVotesPerUser);
+
   return (
     <div className={`dash-page ${isDarkMode ? 'dash-dark' : ''}`}>
       <header className="dash-header">
@@ -162,7 +168,11 @@ export default function ResultsDashboard() {
             <div className="dash-summary">
               <div className="dash-summary-stat">
                 <span className="dash-summary-label">Total Matches</span>
-                <span className="dash-summary-val">{Math.floor(totalComparisons / 2)}</span>
+                <span className="dash-summary-val">{totalMatches}</span>
+              </div>
+              <div className="dash-summary-stat">
+                <span className="dash-summary-label">Estimated Voters</span>
+                <span className="dash-summary-val">{estimatedVoters}</span>
               </div>
               <div className="dash-summary-stat">
                 <span className="dash-summary-label">Score Spread</span>
@@ -200,30 +210,53 @@ export default function ResultsDashboard() {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <h2 className="dash-section-title" style={{ marginTop: '1rem' }}>Score vs Exposure</h2>
-          <div className="dash-chart-container">
-            <ResponsiveContainer width="100%" height={220}>
-              <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: -20 }}>
-                <defs>
-                  <filter id="dotGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDarkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)"} />
-                <XAxis type="number" dataKey="matches" name="Matches" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-                <YAxis type="number" dataKey="elo" name="Elo Score" domain={['dataMin - 50', 'dataMax + 50']} tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-                <ZAxis type="category" dataKey="name" name="Design" />
-                <Scatter data={designs.map(d => ({
-                  name: d.name.length > 15 ? d.name.substring(0, 15) + '...' : d.name,
-                  elo: d.elo_score,
-                  matches: d.comparison_count
-                }))} fill={isDarkMode ? "#ffffff" : "#656e7b"} filter="url(#dotGlow)" />
-              </ScatterChart>
-            </ResponsiveContainer>
+          <h2 className="dash-section-title" style={{ marginTop: '1rem' }}>Win Probability Share</h2>
+          <div className="dash-chart-container" style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ flex: '1 1 50%' }}>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie
+                    data={designs.map(d => ({
+                      name: d.name.length > 15 ? d.name.substring(0, 15) + '...' : d.name,
+                      winRate: Math.round((1 / (1 + Math.pow(10, (1200 - d.elo_score) / 400))) * 100)
+                    }))}
+                    dataKey="winRate"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    innerRadius={0}
+                    stroke="none"
+                  >
+                    {designs.map((entry, index) => {
+                      const colorList = isDarkMode 
+                        ? ['#ffffff', '#d1d5db', '#9ca3af', '#4b5563', '#374151'] 
+                        : ['#000000', '#374151', '#4b5563', '#9ca3af', '#d1d5db'];
+                      return <Cell key={`cell-${index}`} fill={colorList[index % colorList.length]} />
+                    })}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div style={{ flex: '1 1 50%', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {designs.map((d, index) => {
+                const colorList = isDarkMode 
+                  ? ['#ffffff', '#d1d5db', '#9ca3af', '#4b5563', '#374151'] 
+                  : ['#000000', '#374151', '#4b5563', '#9ca3af', '#d1d5db'];
+                const winRate = Math.round((1 / (1 + Math.pow(10, (1200 - d.elo_score) / 400))) * 100);
+                return (
+                  <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: colorList[index % colorList.length] }}></div>
+                    <span style={{ color: isDarkMode ? '#fff' : '#18181b', fontSize: '0.85rem', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {d.name}
+                    </span>
+                    <span style={{ color: '#9ca3af', fontSize: '0.85rem', fontWeight: 600 }}>
+                      {winRate}%
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
           </>
         )}
