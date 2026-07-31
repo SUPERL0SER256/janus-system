@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import imageCompression from 'browser-image-compression';
@@ -27,14 +27,41 @@ export default function HomePage() {
   const [hasConsented, setHasConsented] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [files, setFiles] = useState([]);
+  const [isRenameOpen, setIsRenameOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [votingLink, setVotingLink] = useState(null);
   const [resultsLink, setResultsLink] = useState(null);
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    return () => {
+      files.forEach(f => URL.revokeObjectURL(f.preview));
+    };
+  }, []);
+
   const handleFileChange = (e) => {
-    setFiles(Array.from(e.target.files));
+    const newFiles = Array.from(e.target.files).map((file, index) => {
+      return {
+        id: Math.random().toString(36).substring(2, 9),
+        file,
+        name: `Iteration ${files.length + index + 1}`,
+        preview: URL.createObjectURL(file)
+      };
+    });
+    setFiles(prev => [...prev, ...newFiles]);
+  };
+
+  const removeFile = (id) => {
+    setFiles(prev => {
+      const fileToRemove = prev.find(f => f.id === id);
+      if (fileToRemove) URL.revokeObjectURL(fileToRemove.preview);
+      return prev.filter(f => f.id !== id);
+    });
+  };
+
+  const updateFileName = (id, newName) => {
+    setFiles(prev => prev.map(f => f.id === id ? { ...f, name: newName } : f));
   };
 
   const handleCreateProject = async () => {
@@ -65,16 +92,15 @@ export default function HomePage() {
         useWebWorker: true,
         fileType: 'image/webp'
       };
-      const uploadPromises = files.map(async (file) => {
-        const compressedFile = await imageCompression(file, compressionOptions);
+      const uploadPromises = files.map(async (fileObj) => {
+        const compressedFile = await imageCompression(fileObj.file, compressionOptions);
         const uniqueFileName = `${Math.random().toString(36).substring(2, 15)}.webp`;
         const filePath = `${newProjectId}/${uniqueFileName}`;
         await supabase.storage.from('designs').upload(filePath, compressedFile);
         const { data: urlData } = supabase.storage.from('designs').getPublicUrl(filePath);
-        const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
         return {
           project_id: newProjectId,
-          name: originalName,
+          name: fileObj.name,
           image_url: urlData.publicUrl,
           elo_score: 1200,
           comparison_count: 0
@@ -152,16 +178,69 @@ export default function HomePage() {
             {/* Image upload */}
             <div className="upload-container">
               <div className="upload-header">Images</div>
-              <label className="dropzone">
-                <span className="upload-btn">↑ Upload</span>
-                <span className="dropzone-text">Choose images or drag & drop them here.</span>
-                <span className="dropzone-subtext">JPG, PNG, and WEBP supported.</span>
-                <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden-input" />
-              </label>
-              {files.length > 0 && (
-                <p className="files-selected">{files.length} image{files.length === 1 ? '' : 's'} selected</p>
+              {files.length === 0 ? (
+                <label className="dropzone">
+                  <span className="upload-btn">↑ Upload</span>
+                  <span className="dropzone-text">Choose images or drag & drop them here.</span>
+                  <span className="dropzone-subtext">JPG, PNG, and WEBP supported.</span>
+                  <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden-input" />
+                </label>
+              ) : (
+                <div className="dropzone dropzone--active">
+                  <div className="dropzone-grid">
+                    {files.map(f => (
+                      <div key={f.id} className="thumb-card">
+                        <button type="button" className="thumb-remove" onClick={() => removeFile(f.id)}>✕</button>
+                        <div className="thumb-img-wrap">
+                          <img src={f.preview} alt={f.name} className="thumb-img" />
+                        </div>
+                        <div className="thumb-name-input">
+                          {f.name}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="dropzone-actions">
+                    <label className="btn-secondary dropzone-add-more">
+                      + Add More
+                      <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden-input" />
+                    </label>
+                  </div>
+                </div>
               )}
             </div>
+
+            {files.length > 0 && (
+              <div className="upload-container">
+                <div 
+                  className="upload-header" 
+                  onClick={() => setIsRenameOpen(!isRenameOpen)}
+                  style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: 0 }}
+                >
+                  <span>Rename Iterations</span>
+                  <span style={{ fontSize: '0.8em', color: '#9ca3af', transition: 'transform 0.2s', transform: isRenameOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                    ▼
+                  </span>
+                </div>
+                {isRenameOpen && (
+                  <div className="field-stack" style={{ marginTop: '1.5rem' }}>
+                    {files.map((f, i) => (
+                      <div className="input-field" key={`rename-${f.id}`}>
+                        <label className="input-label">Image {i + 1}</label>
+                        <input
+                          type="text"
+                          value={f.name}
+                          onChange={(e) => updateFileName(f.id, e.target.value)}
+                          placeholder={`Iteration ${i + 1}`}
+                          className="text-input"
+                          maxLength={30}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             <label className="consent-row">
               <input
