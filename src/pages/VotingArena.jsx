@@ -28,7 +28,7 @@ export default function VotingArena() {
         const allPairs = [];
         for (let i = 0; i < images.length; i++) {
           for (let j = i + 1; j < images.length; j++) {
-            // Randomize left/right presentation
+           
             if (Math.random() > 0.5) {
               allPairs.push([images[i], images[j]]);
             } else {
@@ -37,7 +37,7 @@ export default function VotingArena() {
           }
         }
         
-        // Shuffle the pairs (Fisher-Yates)
+        
         for (let i = allPairs.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [allPairs[i], allPairs[j]] = [allPairs[j], allPairs[i]];
@@ -82,7 +82,7 @@ export default function VotingArena() {
   return (
     <div className="arena-page">
       <header className="arena-header">
-        <Link to="/" className="arena-logo">The 'Janus System'</Link>
+        <Link to="/" className="arena-logo">The Janus System</Link>
         <span className="arena-remaining">{queue.length} remaining</span>
       </header>
 

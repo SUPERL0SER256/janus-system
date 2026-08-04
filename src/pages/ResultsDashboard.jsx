@@ -97,7 +97,7 @@ export default function ResultsDashboard() {
   return (
     <div className={`dash-page ${isDarkMode ? 'dash-dark' : ''}`}>
       <header className="dash-header">
-        <Link to="/" className="dash-logo">The 'Janus System'</Link>
+        <Link to="/" className="dash-logo">The Janus System</Link>
         <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
           <button className="dash-theme-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
             {isDarkMode ? 'Light' : 'Dark'}

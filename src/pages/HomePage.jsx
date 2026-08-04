@@ -135,7 +135,7 @@ export default function HomePage() {
     <div className="page">
       <div className="page-inner">
         <div className="header-block">
-          <h1 className="title">The 'Janus System'</h1>
+          <h1 className="title">The Janus System</h1>
           {!votingLink && (
             <p className="subtitle">
               Reduces cognitive load via simple comparisons, revealing the strongest iteration through collective intelligence.
