@@ -24,43 +24,38 @@ export default function LandingPage() {
         initial="hidden"
         animate="visible"
       >
-        <motion.div variants={itemVariants} className="hero-section">
-          <h1 className="landing-title">The 'Janus System'</h1>
+        <motion.div variants={itemVariants} className="hero-block">
+          <h1 className="hero-title">The Janus System</h1>
           <p className="hero-subtitle">
-            Eliminate choice paralysis. Upload your design iterations, share a link, and let collective pairwise voting reveal the strongest design.
+            Eliminate choice paralysis. Upload your design iterations, share a link and let collective pairwise voting reveal the best.
           </p>
+          
           <div className="hero-actions">
-            <Link to="/upload" className="landing-cta primary">
-              Upload Iterations
-            </Link>
-            <Link to="/about" className="landing-cta secondary">
-              Learn How It Works
-            </Link>
+            <Link to="/upload" className="hero-btn hero-btn-light">Upload iterations</Link>
+            <Link to="/about" className="hero-btn hero-btn-dark">Learn how it works</Link>
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="features-section">
-          <div className="feature-card">
-            <div className="feature-icon">1</div>
-            <h3>Upload</h3>
-            <p>Upload between 2 and 50 design iterations you want to compare.</p>
+        <motion.div variants={itemVariants} className="folder-cards-wrapper">
+          <div className="folder-card">
+            <div className="folder-card-num">1</div>
+            <h3 className="folder-card-title">Upload</h3>
+            <p className="folder-card-text">Upload your image iterations and add some context for the voters.</p>
           </div>
-          <div className="feature-card">
-            <div className="feature-icon">2</div>
-            <h3>Share</h3>
-            <p>Send your unique voting link to clients, collaborators, or your audience.</p>
+          <div className="folder-card">
+            <div className="folder-card-num">2</div>
+            <h3 className="folder-card-title">Share</h3>
+            <p className="folder-card-text">Share the generated link with your community to begin collective pairwise voting.</p>
           </div>
-          <div className="feature-card">
-            <div className="feature-icon">3</div>
-            <h3>Decide</h3>
-            <p>Watch the live dashboard as pairwise comparisons generate reliable Elo ratings.</p>
+          <div className="folder-card">
+            <div className="folder-card-num">3</div>
+            <h3 className="folder-card-title">Decide</h3>
+            <p className="folder-card-text">Watch the live dashboard as pairwise comparisons generate reliable Elo ratings.</p>
           </div>
         </motion.div>
 
       </motion.div>
-      <div className="landing-credit">
-        Design © Sumer Vaidya 2026
-      </div>
+      <div className="landing-credit">Design © Sumer Vaidya 2026</div>
     </div>
   );
 }
