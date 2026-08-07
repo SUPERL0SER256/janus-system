@@ -21,7 +21,7 @@ export default function IntroPage() {
       <div className="intro-inner">
 
         <div className="intro-header">
-          <span className="intro-label">The 'Janus System'</span>
+          <span className="intro-label">The Janus System</span>
         </div>
 
         <div className="intro-hero">

@@ -98,14 +98,8 @@ export default function ResultsDashboard() {
     <div className={`dash-page ${isDarkMode ? 'dash-dark' : ''}`}>
       <header className="dash-header">
         <Link to="/" className="dash-logo">The Janus System</Link>
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          <button className="dash-theme-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
-            {isDarkMode ? 'Light' : 'Dark'}
-          </button>
-          <div className="dash-live">
-            <span className="dash-live-dot"></span>
-            Live
-          </div>
+        <div style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem', fontWeight: 500, letterSpacing: '0.02em' }}>
+          Results Dashboard
         </div>
       </header>
 
@@ -133,7 +127,7 @@ export default function ResultsDashboard() {
                 key={design.id}
                 layoutId={`row-${design.id}`}
                 onClick={() => setSelectedDesign(design)}
-                className={`dash-row ${index === 0 ? 'dash-row--leader' : ''}`}
+                className="dash-row"
               >
                 <div className="dash-rank">
                   {index === 0 ? '#1' : index === 1 ? '#2' : index === 2 ? '#3' : `#${index + 1}`}
@@ -197,15 +191,15 @@ export default function ResultsDashboard() {
               }))} margin={{ top: 20, right: 0, left: -20, bottom: 20 }}>
                 <defs>
                   <linearGradient id="achromaticGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={isDarkMode ? "#ffffff" : "#0c0e0c"} stopOpacity={isDarkMode ? 0.9 : 0.95} />
-                    <stop offset="100%" stopColor={isDarkMode ? "#9ca3af" : "#4b5563"} stopOpacity={isDarkMode ? 0.3 : 0.6} />
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity={0.9} />
+                    <stop offset="100%" stopColor="#ffffff" stopOpacity={0.2} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDarkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)"} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
                 <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
                 <YAxis domain={['dataMin - 50', 'dataMax + 50']} tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
 
-                <ReferenceLine y={1200} stroke={isDarkMode ? "#ffffff" : "#18181b"} strokeDasharray="3 3" />
+                <ReferenceLine y={1200} stroke="#ffffff" strokeDasharray="3 3" />
                 <Bar dataKey="elo" radius={[0, 0, 0, 0]} maxBarSize={40} fill="url(#achromaticGradient)" />
               </BarChart>
             </ResponsiveContainer>
@@ -229,10 +223,10 @@ export default function ResultsDashboard() {
                     stroke="none"
                   >
                     {designs.map((entry, index) => {
-                      const colorList = isDarkMode 
-                        ? ['#ffffff', '#d1d5db', '#9ca3af', '#4b5563', '#374151'] 
-                        : ['#000000', '#374151', '#4b5563', '#9ca3af', '#d1d5db'];
-                      return <Cell key={`cell-${index}`} fill={colorList[index % colorList.length]} />
+                      const sortedIds = [...designs].map(d => d.id).sort();
+                      const colorList = ['#ffffff', '#d1d5db', '#9ca3af', '#4b5563', '#374151', '#2dd4bf', '#818cf8', '#f472b6'];
+                      const color = colorList[sortedIds.indexOf(entry.id) % colorList.length];
+                      return <Cell key={`cell-${entry.id}`} fill={color} />
                     })}
                   </Pie>
                 </PieChart>
@@ -240,14 +234,14 @@ export default function ResultsDashboard() {
             </div>
             <div style={{ flex: '1 1 50%', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {designs.map((d, index) => {
-                const colorList = isDarkMode 
-                  ? ['#ffffff', '#d1d5db', '#9ca3af', '#4b5563', '#374151'] 
-                  : ['#000000', '#374151', '#4b5563', '#9ca3af', '#d1d5db'];
+                const sortedIds = [...designs].map(design => design.id).sort();
+                const colorList = ['#ffffff', '#d1d5db', '#9ca3af', '#4b5563', '#374151', '#2dd4bf', '#818cf8', '#f472b6'];
+                const color = colorList[sortedIds.indexOf(d.id) % colorList.length];
                 const winRate = Math.round((1 / (1 + Math.pow(10, (1200 - d.elo_score) / 400))) * 100);
                 return (
                   <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: colorList[index % colorList.length] }}></div>
-                    <span style={{ color: isDarkMode ? '#fff' : '#18181b', fontSize: '0.85rem', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: color }}></div>
+                    <span style={{ color: '#fff', fontSize: '0.85rem', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {d.name}
                     </span>
                     <span style={{ color: '#9ca3af', fontSize: '0.85rem', fontWeight: 600 }}>
