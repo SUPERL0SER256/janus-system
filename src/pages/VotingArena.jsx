@@ -87,6 +87,11 @@ export default function VotingArena() {
       </header>
 
       <main className="arena-main">
+        {/* SEO Thin Content Fix */}
+        <div className="sr-only">
+          Welcome to the Voting Arena. Please select which of the two design iterations you prefer. Your vote contributes to a global Elo rating for these designs, helping the creator decide which iteration is the most effective.
+        </div>
+
         {/* Project context shown while voting */}
         {(project?.title || project?.description) && (
           <div className="arena-context">
@@ -132,6 +137,12 @@ export default function VotingArena() {
           I've seen enough
         </Link>
       </main>
+
+      <footer style={{ position: 'absolute', bottom: '1rem', left: '0', width: '100%', textAlign: 'center' }}>
+        <Link to="/about" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', textDecoration: 'none' }}>
+          Powered by Janus System
+        </Link>
+      </footer>
     </div>
   );
 }

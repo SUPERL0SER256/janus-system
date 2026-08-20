@@ -1,8 +1,13 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
+import { seoPages } from '../data/seoPages';
 import './LandingPage.css';
 
 export default function LandingPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -18,6 +23,41 @@ export default function LandingPage() {
 
   return (
     <div className="landing-page">
+      <Helmet>
+        <title>Janus System | The Collaborative Design Feedback Tool</title>
+      </Helmet>
+
+      {/* Hamburger Menu Button */}
+      <button 
+        className={`landing-menu-btn ${isMenuOpen ? 'open' : ''}`}
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      {/* Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className="landing-menu-overlay"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+          >
+            <span className="landing-menu-label">Use Cases</span>
+            {seoPages.map((page) => (
+              <Link key={page.slug} to={`/${page.slug}`} className="landing-menu-link">
+                {page.title.split(' |')[0]}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div 
         className="landing-inner"
         variants={containerVariants}

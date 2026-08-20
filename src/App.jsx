@@ -7,6 +7,8 @@ import VotingArena from './pages/VotingArena';
 import ResultsDashboard from './pages/ResultsDashboard';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
+import UseCasePage from './pages/UseCasePage';
+import { seoPages } from './data/seoPages';
 import './App.css';
 
 export default function App() {
@@ -20,6 +22,9 @@ export default function App() {
       <Route path="/project/:projectId/results" element={<ResultsDashboard />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
+      {seoPages.map((page) => (
+        <Route key={page.slug} path={`/${page.slug}`} element={<UseCasePage />} />
+      ))}
     </Routes>
   );
 }

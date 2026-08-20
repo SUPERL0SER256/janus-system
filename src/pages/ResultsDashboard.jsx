@@ -104,13 +104,20 @@ export default function ResultsDashboard() {
       </header>
 
       <main className="dash-main">
+        {/* SEO Thin Content Fix */}
+        <div className="sr-only">
+          Welcome to the Janus System Results Dashboard. Here you can view the live Elo rankings, win rates, and total matches for each design iteration in this project. Our collaborative decision engine eliminates choice paralysis by crowdsourcing pairwise feedback.
+        </div>
+
         {/* Project context shown at top */}
-        {(project?.title || project?.description) && (
-          <div className="dash-context" style={{ marginBottom: '2rem' }}>
-            {project.title && <h2 className="dash-context-title" style={{ fontSize: '2rem', marginBottom: '0.5rem', color: isDarkMode ? '#fff' : '#18181b', fontWeight: 700 }}>{project.title}</h2>}
-            {project.description && <p className="dash-context-desc" style={{ color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#6b7280', lineHeight: 1.5 }}>{project.description}</p>}
-          </div>
-        )}
+        <div className="dash-context" style={{ marginBottom: '2rem' }}>
+          {project?.title ? (
+            <h1 className="dash-context-title" style={{ fontSize: '2rem', marginBottom: '0.5rem', color: isDarkMode ? '#fff' : '#18181b', fontWeight: 700 }}>{project.title}</h1>
+          ) : (
+            <h1 className="sr-only">Project Results Dashboard</h1>
+          )}
+          {project?.description && <p className="dash-context-desc" style={{ color: isDarkMode ? 'rgba(255,255,255,0.7)' : '#6b7280', lineHeight: 1.5 }}>{project.description}</p>}
+        </div>
 
         <h2 className="dash-section-title">Rankings</h2>
 
