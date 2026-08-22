@@ -55,7 +55,28 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Fallback content for SEO crawlers that do not execute JavaScript -->
+      <div style="min-height: 100vh; background-color: #0a0a0d; color: rgba(255,255,255,0.9); padding: 2rem; font-family: sans-serif;">
+        <h1>The Janus System</h1>
+        <p>The Collaborative Design Feedback Tool. Eliminate choice paralysis. Upload your design iterations, share a link, and let collective pairwise voting reveal the best version.</p>
+        <p>Use our data-driven decision engine to gather crowdsourced feedback via A/B pairwise comparisons.</p>
+        <nav>
+          <h2>Navigation & Use Cases</h2>
+          <ul>
+            <li><a href="/upload">Upload Designs</a></li>
+            <li><a href="/about">About the System</a></li>
+            <li><a href="/design-iteration">Design Iteration Tool</a></li>
+            <li><a href="/design-decision-making">Design Decision-Making</a></li>
+            <li><a href="/design-critique">Design Critique Process</a></li>
+            <li><a href="/design-feedback">Design Feedback for Teams</a></li>
+            <li><a href="/compare-design-iterations">Compare Design Iterations</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
